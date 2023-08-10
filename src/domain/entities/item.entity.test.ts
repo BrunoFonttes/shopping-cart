@@ -1,4 +1,4 @@
-import { ValidationError } from "./errors/validationError";
+import { ValidationError } from "../errors/validationError";
 import {
 	Item,
 	invalidIdErrorMsg,

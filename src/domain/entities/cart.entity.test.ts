@@ -23,7 +23,7 @@ const dress: Item = {
 describe("tests cart entity", () => {
 	describe("addItem", () => {
 		it("should return cart with the added items", () => {
-			const cart = new Cart("1");
+			const cart = new Cart(1);
 
 			cart
 				.addItem(tshirt, 1)
@@ -49,7 +49,7 @@ describe("tests cart entity", () => {
 			expect(cart.items).toStrictEqual(expectedCart);
 		});
 		it("should not add items with negative amount", () => {
-			const cart = new Cart("1");
+			const cart = new Cart(1);
 
 			cart.addItem(tshirt, 1).addItem(tshirt, -2).addItem(dress, 3);
 
@@ -69,7 +69,7 @@ describe("tests cart entity", () => {
 
 		describe("removeItem", () => {
 			it("should return cart without the removed items", () => {
-				const cart = new Cart("1");
+				const cart = new Cart(1);
 
 				cart.addItem(tshirt, 1).addItem(jeans, 2).addItem(dress, 3);
 
@@ -93,7 +93,7 @@ describe("tests cart entity", () => {
 				expect(cart.items).toStrictEqual(expectedCart);
 			});
 			it("should not remove items with negative amount", () => {
-				const cart = new Cart("1");
+				const cart = new Cart(1);
 
 				cart.addItem(tshirt, 1).addItem(jeans, 2).addItem(dress, 3);
 
@@ -120,13 +120,13 @@ describe("tests cart entity", () => {
 	});
 	describe("test calculated totalPrice", () => {
 		it("should return the full price:(use case test 1)", () => {
-			const cart = new Cart("1");
+			const cart = new Cart(1);
 
 			cart.addItem(tshirt, 3);
 			expect(cart.totalPrice).toBe(Number((tshirt.price * 2).toFixed(2)));
 		});
 		it("should return the total price with discount applied:(use case test 2)", () => {
-			const cart = new Cart("2");
+			const cart = new Cart(2);
 
 			cart.addItem(tshirt, 2).addItem(jeans, 2);
 			expect(cart.totalPrice).toBe(
@@ -134,7 +134,7 @@ describe("tests cart entity", () => {
 			);
 		});
 		it("should return the total price with discount applied:(use case test 3)", () => {
-			const cart = new Cart("3");
+			const cart = new Cart(3);
 
 			cart.addItem(tshirt, 1).addItem(jeans, 2).addItem(dress, 3);
 			expect(cart.totalPrice).toBe(
@@ -142,7 +142,7 @@ describe("tests cart entity", () => {
 			);
 		});
 		it("should return the total price with discount applied:((new)use case test 1)", () => {
-			const cart = new Cart("3");
+			const cart = new Cart(3);
 
 			cart
 				.addItem(tshirt, 1)

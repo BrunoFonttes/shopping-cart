@@ -10,7 +10,7 @@ export class Cart {
 
 	private _totalPrice = 0;
 
-	constructor(public readonly userId: string) {}
+	constructor(public readonly userId: number) {}
 
 	get totalPrice(): number {
 		return this._totalPrice;

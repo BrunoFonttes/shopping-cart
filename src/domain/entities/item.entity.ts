@@ -1,5 +1,5 @@
-import { Either, failure, success } from "../core/either";
-import { ValidationError } from "./errors/validationError";
+import { Either, failure, success } from "../../core/either";
+import { ValidationError } from "../errors/validationError";
 
 export const invalidNameErrorMsg = "name length must be between 3 and 255";
 export const invalidPriceErrorMsg =
@@ -20,6 +20,11 @@ export class Item {
 	}
 
 	static create(
+		/*
+		 * Normally I would not put id here, since I would choose for the database to generate the id,
+		 * but I decided to left it here just to ensure the items mock in inMemoryRepository was meeting the
+		 * required fields
+		 */
 		id: number,
 		name: string,
 		price: number,
