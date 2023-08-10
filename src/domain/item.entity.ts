@@ -1,4 +1,4 @@
-import { Either, error, success } from "../core/either";
+import { Either, failure, success } from "../core/either";
 import { ValidationError } from "./errors/validationError";
 
 export const invalidNameErrorMsg = "name length must be between 3 and 255";
@@ -39,7 +39,7 @@ export class Item {
 		}
 
 		if (validationErrors.length) {
-			return error(new ValidationError(validationErrors));
+			return failure(new ValidationError(validationErrors));
 		}
 
 		return success(new Item(id, name, price));

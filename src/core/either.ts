@@ -1,42 +1,42 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-export type Either<L, A> = ErrorResult<L, A> | SuccessResult<L, A>;
+export type Either<L, A> = Fail<L, A> | Success<L, A>;
 
-export class ErrorResult<L, A> {
+export class Fail<L, A> {
 	readonly value: L;
 
 	constructor(value: L) {
 		this.value = value;
 	}
 
-	isError(): this is ErrorResult<L, A> {
+	isFailure(): this is Fail<L, A> {
 		return true;
 	}
 
-	isSuccess(): this is SuccessResult<L, A> {
+	isSuccess(): this is Success<L, A> {
 		return false;
 	}
 }
 
-export class SuccessResult<L, A> {
+export class Success<L, A> {
 	readonly value: A;
 
 	constructor(value: A) {
 		this.value = value;
 	}
 
-	isError(): this is ErrorResult<L, A> {
+	isFailure(): this is Fail<L, A> {
 		return false;
 	}
 
-	isSuccess(): this is SuccessResult<L, A> {
+	isSuccess(): this is Success<L, A> {
 		return true;
 	}
 }
 
-export const error = <L, A>(l: L): Either<L, A> => {
-	return new ErrorResult<L, A>(l);
+export const failure = <L, A>(l: L): Either<L, A> => {
+	return new Fail<L, A>(l);
 };
 
 export const success = <L, A>(a: A): Either<L, A> => {
-	return new SuccessResult<L, A>(a);
+	return new Success<L, A>(a);
 };
