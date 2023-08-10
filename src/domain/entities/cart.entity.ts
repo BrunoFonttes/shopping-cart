@@ -1,22 +1,16 @@
-import { Item } from "./item.entity";
-
-export type CartItem = {
-	item: Item;
-	amount: number;
-};
+import { CartItem } from "./cartItem.valueObject";
 
 export class Cart {
-	public readonly items: Record<number, CartItem> = {};
+	public readonly totalPrice;
 
-	private _totalPrice = 0;
-
-	constructor(public readonly userId: number) {}
-
-	get totalPrice(): number {
-		return this._totalPrice;
+	constructor(
+		public readonly userId: number,
+		public readonly items: Record<number, CartItem>,
+	) {
+		this.totalPrice = this.calculateTotalPrice();
 	}
 
-	private updateTotalPrice(): void {
+	private calculateTotalPrice(): number {
 		const itemsIdsOrderedByPrice = Object.keys(this.items)
 			.map(item => Number(item))
 			.sort((a, b) => this.items[a].item.price - this.items[b].item.price);
@@ -46,41 +40,6 @@ export class Cart {
 			discount += this.items[itemId].item.price;
 		}
 
-		this._totalPrice = Number((fullPrice - discount).toFixed(2));
-	}
-
-	addItem(item: Item, amount: number): Cart {
-		if (!Number.isInteger(amount) || amount < 0) {
-			return this;
-		}
-
-		const cartItem = this.items[item.id];
-
-		if (cartItem) {
-			cartItem.amount += amount;
-		} else {
-			this.items[item.id] = {
-				item,
-				amount,
-			};
-		}
-
-		this.updateTotalPrice();
-		return this;
-	}
-
-	removeItem(item: Item, amount: number): Cart {
-		if (!Number.isInteger(amount) || amount < 0) {
-			return this;
-		}
-
-		const cartItem = this.items[item.id];
-
-		if (cartItem && cartItem?.amount >= amount) {
-			cartItem.amount -= amount;
-			this.updateTotalPrice();
-		}
-
-		return this;
+		return Number((fullPrice - discount).toFixed(2));
 	}
 }
