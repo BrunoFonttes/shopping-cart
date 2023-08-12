@@ -1,5 +1,5 @@
 import { Either, failure, success } from "../../core/either";
-import { ValidationError } from "../errors/validationError";
+import { DomainValidationException } from "../errors/domainValidationException";
 
 export const invalidNameErrorMsg = "name length must be between 3 and 255";
 export const invalidPriceErrorMsg = "price must be a number greather than 0 with 2 decimal places";
@@ -27,23 +27,23 @@ export class Item {
 		id: number,
 		name: string,
 		price: number,
-	): Either<ValidationError, Item> {
-		const validationErrors: string[] = [];
+	): Either<DomainValidationException, Item> {
+		const details: string[] = [];
 
 		if (!Number.isInteger(id) || id < 1) {
-			validationErrors.push(invalidIdErrorMsg);
+			details.push(invalidIdErrorMsg);
 		}
 
 		if (name.length < 3 || name.length > 255) {
-			validationErrors.push(invalidNameErrorMsg);
+			details.push(invalidNameErrorMsg);
 		}
 
 		if (price <= 0 || Number(price.toFixed(2)) != price) {
-			validationErrors.push(invalidPriceErrorMsg);
+			details.push(invalidPriceErrorMsg);
 		}
 
-		if (validationErrors.length) {
-			return failure(new ValidationError(validationErrors));
+		if (details.length) {
+			return failure(new DomainValidationException(details));
 		}
 
 		return success(new Item(id, name, price));

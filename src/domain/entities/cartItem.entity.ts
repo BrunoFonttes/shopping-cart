@@ -1,5 +1,5 @@
 import { Either, failure, success } from "../../core/either";
-import { ValidationError } from "../errors/validationError";
+import { DomainValidationException } from "../errors/domainValidationException";
 import { Item } from "./item.entity";
 
 const invalidAmountError = "amount must be an integer > 0";
@@ -16,7 +16,7 @@ export class CartItem {
 
 	static create(item: Item, amount: number): Either<Error, CartItem> {
 		if (!Number.isInteger(amount) || amount <= 0) {
-			return failure(new ValidationError([invalidAmountError]));
+			return failure(new DomainValidationException([invalidAmountError]));
 		}
 
 		return success(new CartItem(item, amount));
