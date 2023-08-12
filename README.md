@@ -30,6 +30,10 @@ I opted for using hexagonal architecture to keep the application business logic 
 └── index.ts
 ```
 
+### Diagram
+
+![Alt text](docs/architecture.jpg)
+
 ### Concrete database:
 
 In order to focus on testing and domain logic, I chose to implement an In-Memory database.
@@ -45,4 +49,93 @@ Example:
 ```
 ├── cart.entity.test.ts
 ├── cart.entity.ts
+```
+
+## Preset Data
+
+App starts with 3 items as stated in the challenge:
+
+```
+| itemId | name    | price |
+| ------ | ------- | ----- |
+| 1      | T-shirt | 12.99 |
+| 2      | Jeans   | 25.00 |
+| 3      | Dress   | 20.65 |
+```
+
+For the initial user, I simulated a token based authentication.
+The token for the initial user can be set via USER_TOKEN variable in .env file.
+The initial value set in .env.example is 1bd01725-7b40-4bae-89fb-6cdd36f66614
+
+## Main features
+
+- logging level
+- request id for requests and logs
+- request id for app logs(thanks to async local storage)
+- simple graceful shutdown
+- git hooks
+  - commit linting
+  - testing
+  - linting
+
+## Limitations
+
+### Request validations
+
+- As the application is small it doesnt use any jsonschema or other object validator.
+
+### Persistence and Isolation Level
+
+- It does not support transactions and persistence, so it can't scale horizontally.
+
+### Multi-user and Authentication
+
+- It supports only one user and doesnt have a real token-based authentication mechanism.
+
+## Running commands
+
+Run tests via docker:
+
+```
+make test
+```
+
+Run application in dev mode:
+
+```
+make run-dev
+```
+
+Run application in prod mode:
+
+```
+make run-prod
+```
+
+## Endpoints
+
+Get cart with total price calculated:
+
+```
+curl --location --request GET 'localhost:3000/api/v1/cart' \
+--header 'Authorization: 1bd01725-7b40-4bae-89fb-6cdd36f66614'
+```
+
+Add item to cart
+
+```
+curl --location 'localhost:3000/api/v1/cart' \
+--header 'Authorization: 1bd01725-7b40-4bae-89fb-6cdd36f66614' \
+--header 'Content-Type: application/json' \
+--data '{
+    "itemId":3,
+    "amount":1
+}'
+```
+
+Remove item from cart
+
+```
+curl --location --request DELETE 'localhost:3000/api/v1/cart/item/1' \
+--header 'Authorization: 1bd01725-7b40-4bae-89fb-6cdd36f66614'
 ```
