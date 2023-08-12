@@ -41,7 +41,7 @@ describe("tests cart/ resource", () => {
 		it("responds 400 [domain error]", done => {
 			request(app)
 				.post("/cart")
-				.send({ item: 1, amount: -4 })
+				.send({ itemId: 1, amount: -4 })
 				.set("authorization", envs.userToken)
 				.expect(400)
 				.end(done);

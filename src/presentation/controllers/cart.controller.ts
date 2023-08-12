@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { ResourceNotFoundException } from "../../domain/errors/resourceNotFoundException";
 import { CartServicePort } from "../../domain/ports/services/cart.service.port";
 import { logger } from "../../infra/logger";
 import { CartDTO } from "../dtos/cart.dto";
@@ -19,13 +18,13 @@ export class CartController {
 			/**
 			 * as the application grows, for request validations, we could use jsonschema lib
 			 */
-			if (!itemId || isNaN(Number.parseInt(itemId))) {
+			if (isNaN(Number.parseInt(itemId))) {
 				return res
 					.status(StatusCodes.BAD_REQUEST)
 					.json({ details: "req.body: itemId is required and must be an integer" });
 			}
 
-			if (!amount || isNaN(Number(amount))) {
+			if (isNaN(Number(amount))) {
 				return res
 					.status(StatusCodes.BAD_REQUEST)
 					.json({ details: "req.body: amount is required and must be a number" });
@@ -38,10 +37,6 @@ export class CartController {
 			);
 
 			if (responseOrError.isFailure()) {
-				if (responseOrError.value instanceof ResourceNotFoundException) {
-					return res.status(StatusCodes.NOT_FOUND).json({ details: responseOrError.value.message });
-				}
-
 				throw responseOrError.value;
 			}
 
@@ -67,10 +62,6 @@ export class CartController {
 			);
 
 			if (responseOrError.isFailure()) {
-				if (responseOrError.value instanceof ResourceNotFoundException) {
-					return res.status(StatusCodes.NOT_FOUND).json({ details: responseOrError.value.message });
-				}
-
 				throw responseOrError.value;
 			}
 
@@ -87,10 +78,6 @@ export class CartController {
 			const responseOrError = await this.cartService.getCart(req.userId);
 
 			if (responseOrError.isFailure()) {
-				if (responseOrError.value instanceof ResourceNotFoundException) {
-					return res.status(StatusCodes.NOT_FOUND).send({ details: responseOrError.value.message });
-				}
-
 				throw responseOrError.value;
 			}
 

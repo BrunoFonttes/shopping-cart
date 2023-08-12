@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "rm -f -r .husky && npx husky install && chmod +x ./husky-preset.sh && ./husky-preset.sh",
     "commit": "npx cz",
-    "lint": "npx eslint .",
+    "lint": "npx eslint src",
     "dev": "npx nodemon -w src --exec \"dotenv -e .env ts-node src/index.ts\" -e \"ts\"",
     "build": "tsc",
     "prod": "node build/index.js",

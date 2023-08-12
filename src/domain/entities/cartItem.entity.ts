@@ -2,7 +2,7 @@ import { Either, failure, success } from "../../core/either";
 import { ValidationError } from "../errors/validationError";
 import { Item } from "./item.entity";
 
-const invalidAmountError = "amount must be a integer > 0";
+const invalidAmountError = "amount must be an integer > 0";
 
 export class CartItem {
 	private constructor(
