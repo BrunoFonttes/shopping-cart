@@ -22,6 +22,7 @@ module.exports = {
 		'@typescript-eslint', 'prettier'
 	],
 	'rules': {
+		"@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
 		"padding-line-between-statements": [
 			"error",
 			{
