@@ -4,7 +4,7 @@
   "description": "An api to manage a shopping cart by adding and removing items from a user's cart.",
   "main": "build/index.js",
   "scripts": {
-    "prepare": "[ -e .husky ] && rm -r .husky && npx husky install && chmod +x ./husky-preset.sh && ./husky-preset.sh",
+    "prepare": "rm -f -r .husky && npx husky install && chmod +x ./husky-preset.sh && ./husky-preset.sh",
     "commit": "npx cz",
     "lint": "npx eslint .",
     "dev": "npx nodemon -w src --exec \"dotenv -e .env ts-node src/index.ts\" -e \"ts\"",
@@ -58,7 +58,7 @@
   "lint-staged": {
     "*.ts": [
       "npm run test:staged",
-      "eslint"
+      "npm run lint"
     ]
   }
 }
