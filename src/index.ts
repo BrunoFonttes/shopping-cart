@@ -3,11 +3,9 @@ import express from "express";
 import rTracer from "cls-rtracer";
 import morgan from "morgan";
 import { envs } from "./config/env.factory";
-import { Container } from "./container";
 import { logger } from "./core/logger";
+import { cartRouter } from "./presentation/controllers/cart.router";
 import { authHandler, errorHandler } from "./presentation/middlewares";
-
-const { controllers } = new Container();
 
 export const app = express();
 
@@ -30,12 +28,11 @@ app.get("/health", (_req, res) => {
 });
 
 app.use(authHandler);
-
-app.post("/cart", controllers.cart.addOrUpdateItems);
-app.delete("/cart/item/:itemId", controllers.cart.removeItem);
-app.get("/cart", controllers.cart.get);
-
+app.use("/api/v1", cartRouter);
 app.use(errorHandler);
+app.all("*", function (_req, res) {
+	return res.status(404).send();
+});
 
 export const server = app.listen(envs.port, () => {
 	logger.info(`server listening at port ${envs.port}`);

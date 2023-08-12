@@ -6,7 +6,7 @@ import { InMemoryCartRepository } from "./infra/database/inMemory/inMemoryCart.r
 import { InMemoryItemRepository } from "./infra/database/inMemory/inMemoryItem.repository";
 import { CartController } from "./presentation/controllers/cart.controller";
 
-export class Container {
+class Container {
 	private repositories!: {
 		cart: CartRepositoryPort;
 		item: ItemRepositoryPort;
@@ -27,17 +27,25 @@ export class Container {
 	}
 
 	private injectRepositories() {
-		this.repositories = {
-			cart: new InMemoryCartRepository(),
-			item: new InMemoryItemRepository(),
-		};
+		if (!this.repositories) {
+			this.repositories = {
+				cart: new InMemoryCartRepository(),
+				item: new InMemoryItemRepository(),
+			};
+		}
 	}
 
 	private injectServices() {
-		this.services = { cart: new CartService(this.repositories.cart, this.repositories.item) };
+		if (!this.services) {
+			this.services = { cart: new CartService(this.repositories.cart, this.repositories.item) };
+		}
 	}
 
 	private injectControllers() {
-		this._controllers = { cart: new CartController(this.services.cart) };
+		if (!this.controllers) {
+			this._controllers = { cart: new CartController(this.services.cart) };
+		}
 	}
 }
+
+export const container = new Container();
