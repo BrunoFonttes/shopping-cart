@@ -1,4 +1,4 @@
-import { CartItem } from "./cartItem.valueObject";
+import { CartItem } from "./cartItem.entity";
 import { Item } from "./item.entity";
 
 const tshirt: Item = {
