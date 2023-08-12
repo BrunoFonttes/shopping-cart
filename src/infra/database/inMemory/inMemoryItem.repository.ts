@@ -1,17 +1,18 @@
-import { Either, success } from "../../../core/either";
+import { Either, failure, success } from "../../../core/either";
 import { Item } from "../../../domain/entities/item.entity";
-import { ItemRepositoryPort } from "../../../domain/ports/item.repository.port";
+import { ResourceNotFoundException } from "../../../domain/errors/resourceNotFoundException";
+import { ItemRepositoryPort } from "../../../domain/ports/repositories/item.repository.port";
 
-export class InMemoryCartRepository implements ItemRepositoryPort {
-	private items = new Map<number, Item>();
+type ItemModel = {
+	readonly id: number;
+	readonly name: string;
+	readonly price: number;
+};
 
-	private constructor(items: Item[]) {
-		items.forEach(item => {
-			this.items.set(item.id, item);
-		});
-	}
+export class InMemoryItemRepository implements ItemRepositoryPort {
+	private items = new Map<number, ItemModel>();
 
-	static create() {
+	constructor() {
 		const tshirt = Item.create(1, "T-Shirt", 12.99);
 
 		if (tshirt.isFailure()) {
@@ -30,14 +31,22 @@ export class InMemoryCartRepository implements ItemRepositoryPort {
 			throw dress.value;
 		}
 
-		return new InMemoryCartRepository([tshirt.value, jeans.value, dress.value]);
+		[tshirt.value, jeans.value, dress.value].forEach(item => {
+			this.items.set(item.id, item);
+		});
 	}
 
 	async getAll(): Promise<Either<Error, Item[]>> {
 		return success(Array.from(this.items.values()));
 	}
 
-	async getById(id: number): Promise<Either<Error, Item | undefined>> {
-		return success(this.items.get(id));
+	async getById(id: number): Promise<Either<Error, Item>> {
+		const item = this.items.get(id);
+
+		if (item) {
+			return success(item);
+		} else {
+			return failure(new ResourceNotFoundException("item not found"));
+		}
 	}
 }
