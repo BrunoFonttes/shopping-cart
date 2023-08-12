@@ -2,7 +2,7 @@ import rTracer from "cls-rtracer";
 
 import { createLogger, format, transports } from "winston";
 import { envs } from "../../../config/env.factory";
-import { AllowedLogLevels } from "../logger.port";
+import { AllowedLogLevels } from "../../../domain/ports/logger/logger.port";
 
 const { combine, timestamp, printf } = format;
 

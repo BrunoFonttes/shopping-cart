@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { logger } from "../../core/logger";
 import { ResourceNotFoundException } from "../../domain/errors/resourceNotFoundException";
 import { ValidationError } from "../../domain/errors/validationError";
-import { logger } from "../../infra/logger";
 
 export const errorHandler = (err: Error, _req: Request, res: Response, next: NextFunction) => {
 	logger.error(err.message);

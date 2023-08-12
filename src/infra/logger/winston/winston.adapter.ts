@@ -1,4 +1,4 @@
-import { LoggerPort } from "../logger.port";
+import { LoggerPort } from "../../../domain/ports/logger/logger.port";
 import { winstonLogger } from "./winston";
 
 export class WinstonAdapter extends LoggerPort {

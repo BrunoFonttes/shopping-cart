@@ -4,7 +4,7 @@ import rTracer from "cls-rtracer";
 import morgan from "morgan";
 import { envs } from "./config/env.factory";
 import { Container } from "./container";
-import { logger } from "./infra/logger";
+import { logger } from "./core/logger";
 import { authHandler, errorHandler } from "./presentation/middlewares";
 
 const { controllers } = new Container();

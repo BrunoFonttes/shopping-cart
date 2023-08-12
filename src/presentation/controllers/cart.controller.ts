@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { logger } from "../../core/logger";
 import { CartServicePort } from "../../domain/ports/services/cart.service.port";
-import { logger } from "../../infra/logger";
 import { CartDTO } from "../dtos/cart.dto";
 
 /**
