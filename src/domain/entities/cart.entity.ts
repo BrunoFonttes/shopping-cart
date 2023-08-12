@@ -1,4 +1,4 @@
-import { CartItem } from "./cartItem.valueObject";
+import { CartItem } from "./cartItem.entity";
 
 export class Cart {
 	public readonly totalPrice;
@@ -19,9 +19,7 @@ export class Cart {
 			({ totalItems, fullPrice }, itemId) => {
 				return {
 					totalItems: totalItems + this.items[itemId].amount,
-					fullPrice:
-						fullPrice +
-						this.items[itemId].item.price * this.items[itemId].amount,
+					fullPrice: fullPrice + this.items[itemId].item.price * this.items[itemId].amount,
 				};
 			},
 			{

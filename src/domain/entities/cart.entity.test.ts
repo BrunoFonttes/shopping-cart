@@ -33,9 +33,7 @@ describe("tests cart entity", () => {
 				[jeans.id]: { item: jeans, amount: 2 },
 			});
 
-			expect(cart.totalPrice).toBe(
-				Number((tshirt.price * 1 + jeans.price * 2).toFixed(2)),
-			);
+			expect(cart.totalPrice).toBe(Number((tshirt.price * 1 + jeans.price * 2).toFixed(2)));
 		});
 		it("should return the total price with discount applied:(use case test 3)", () => {
 			const cart = new Cart(1, {
@@ -44,9 +42,7 @@ describe("tests cart entity", () => {
 				[dress.id]: { item: dress, amount: 3 },
 			});
 
-			expect(cart.totalPrice).toBe(
-				Number((jeans.price * 2 + dress.price * 2).toFixed(2)),
-			);
+			expect(cart.totalPrice).toBe(Number((jeans.price * 2 + dress.price * 2).toFixed(2)));
 		});
 	});
 });

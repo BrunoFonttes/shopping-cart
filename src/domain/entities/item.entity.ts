@@ -2,8 +2,7 @@ import { Either, failure, success } from "../../core/either";
 import { ValidationError } from "../errors/validationError";
 
 export const invalidNameErrorMsg = "name length must be between 3 and 255";
-export const invalidPriceErrorMsg =
-	"price must be a number greather than 0 with 2 decimal places";
+export const invalidPriceErrorMsg = "price must be a number greather than 0 with 2 decimal places";
 export const invalidIdErrorMsg = "id must be a positive integer";
 
 export class Item {
