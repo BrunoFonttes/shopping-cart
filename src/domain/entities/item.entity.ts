@@ -5,6 +5,10 @@ export const invalidNameErrorMsg = "name length must be between 3 and 255";
 export const invalidPriceErrorMsg = "price must be a number greather than 0 with 2 decimal places";
 export const invalidIdErrorMsg = "id must be a positive integer";
 
+/**
+ * The item is loaded by default, but it is still important to ensure that the seeded data
+ * is valid
+ */
 export class Item {
 	public readonly id: number;
 
