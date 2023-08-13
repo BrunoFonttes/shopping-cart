@@ -32,14 +32,22 @@ describe("tests cart service", () => {
 
 			spies.itemRepositoryStub.getByIdSpy.mockResolvedValueOnce(failure(new Error()));
 
-			const resultOrError = await sut.addOrUpdateItem(1, 1, 2);
+			const resultOrError = await sut.addOrUpdateItem({
+				userId: 1,
+				itemId: 1,
+				amount: 2,
+			});
 
 			expect(resultOrError.isFailure()).toBe(true);
 		});
 		it("should return failure when cartItem has validation errors", async () => {
 			const { sut } = makeSut();
 
-			const resultOrError = await sut.addOrUpdateItem(1, 1, -2);
+			const resultOrError = await sut.addOrUpdateItem({
+				userId: 1,
+				itemId: 1,
+				amount: -2,
+			});
 
 			expect(resultOrError.isFailure()).toBe(true);
 		});
@@ -48,14 +56,22 @@ describe("tests cart service", () => {
 
 			spies.cartRepositoryStub.addOrUpdateItemSpy.mockResolvedValueOnce(failure(new Error()));
 
-			const resultOrError = await sut.addOrUpdateItem(1, 1, 2);
+			const resultOrError = await sut.addOrUpdateItem({
+				userId: 1,
+				itemId: 1,
+				amount: 2,
+			});
 
 			expect(resultOrError.isFailure()).toBe(true);
 		});
 		it("should return success", async () => {
 			const { sut } = makeSut();
 
-			const resultOrError = await sut.addOrUpdateItem(-1, 1, 2);
+			const resultOrError = await sut.addOrUpdateItem({
+				userId: 1,
+				itemId: 1,
+				amount: 2,
+			});
 
 			expect(resultOrError.isSuccess()).toBe(true);
 		});

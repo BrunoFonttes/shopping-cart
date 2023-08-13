@@ -1,4 +1,5 @@
 import { Either, failure, success } from "../../core/either";
+import { logger } from "../../core/logger";
 import { Cart } from "../entities/cart.entity";
 import { CartItem } from "../entities/cartItem.entity";
 import { CartRepositoryPort } from "../ports/repositories/cart.repository.port";
@@ -11,11 +12,17 @@ export class CartService implements CartServicePort {
 		private readonly itemRepository: ItemRepositoryPort,
 	) {}
 
-	async addOrUpdateItem(
-		userId: number,
-		itemId: number,
-		amount: number,
-	): Promise<Either<Error, void>> {
+	async addOrUpdateItem(cart: {
+		userId: number;
+		itemId: number;
+		amount: number;
+	}): Promise<Either<Error, void>> {
+		// To avoid repeating the service prefix we could create a parent logger in the constructor
+		// and log here as this.logger.child.info(...)
+		logger.info("cartService.addOrUpdateItem parameters", cart);
+
+		const { userId, itemId, amount } = cart;
+
 		const itemOrError = await this.itemRepository.getById(itemId);
 
 		if (itemOrError.isFailure()) {
@@ -24,6 +31,8 @@ export class CartService implements CartServicePort {
 
 		const item = itemOrError.value;
 
+		logger.info("cartService.found item", item);
+
 		const cartItemOrError = CartItem.create(item, amount);
 
 		if (cartItemOrError.isFailure()) {
@@ -31,6 +40,8 @@ export class CartService implements CartServicePort {
 		}
 
 		const cartItem = cartItemOrError.value;
+
+		logger.info("cartService.cart item", cartItem);
 
 		const cartOrError = await this.cartRepository.addOrUpdateItem(userId, cartItem);
 

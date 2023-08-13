@@ -30,11 +30,11 @@ export class CartController {
 					.json({ details: "req.body: amount is required and must be a number" });
 			}
 
-			const responseOrError = await this.cartService.addOrUpdateItem(
-				req.userId,
-				Number.parseInt(itemId),
-				Number(amount),
-			);
+			const responseOrError = await this.cartService.addOrUpdateItem({
+				userId: req.userId,
+				itemId: Number.parseInt(itemId),
+				amount: Number(amount),
+			});
 
 			if (responseOrError.isFailure()) {
 				throw responseOrError.value;
