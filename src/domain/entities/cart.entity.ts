@@ -1,3 +1,4 @@
+import { logger } from "../../core/logger";
 import { CartItem } from "./cartItem.entity";
 
 export class Cart {
@@ -55,9 +56,16 @@ export class Cart {
 			.map(item => Number(item))
 			.sort((a, b) => this.items[a].item.price - this.items[b].item.price);
 
-		const { totalItems, totalPrice } = this.consolidateCart(itemsIdsOrderedByPrice);
+		const consolidatedCart = this.consolidateCart(itemsIdsOrderedByPrice);
 
-		const discount = this.calculateDiscount({ totalItems, itemsIdsOrderedByPrice });
+		logger.info("consolidated cart", consolidatedCart);
+
+		const { totalItems, totalPrice } = consolidatedCart;
+
+		const discount = this.calculateDiscount({
+			totalItems: totalItems,
+			itemsIdsOrderedByPrice,
+		});
 
 		return {
 			totalPrice: Number(totalPrice.toFixed(2)),
