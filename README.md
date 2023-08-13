@@ -92,6 +92,10 @@ The initial value set in .env.example is 1bd01725-7b40-4bae-89fb-6cdd36f66614
 
 - It supports only one user and doesnt have a real token-based authentication mechanism.
 
+### Logging
+
+- It doesnt support child logging, but it could be done by updating the domain/ports/logger interface and its logging driver adapter
+
 ## Running commands
 
 Run tests via docker:
