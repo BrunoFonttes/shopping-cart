@@ -80,7 +80,7 @@ The initial value set in .env.example is 1bd01725-7b40-4bae-89fb-6cdd36f66614
 
 ## Limitations
 
-### Request validations
+### Request Validations
 
 - As the application is small it doesnt use any jsonschema or other object validator.
 
@@ -118,7 +118,7 @@ make run-prod
 
 ## Endpoints
 
-Get cart with total price calculated:
+### Get cart:
 
 ```
 curl --location --request GET 'localhost:3000/api/v1/cart' \
@@ -145,7 +145,7 @@ Response Body:
 }
 ```
 
-Add item to cart
+### Add item to cart
 
 ```
 curl --location 'localhost:3000/api/v1/cart' \
@@ -157,7 +157,7 @@ curl --location 'localhost:3000/api/v1/cart' \
 }'
 ```
 
-Remove item from cart
+### Remove item from cart
 
 ```
 curl --location --request DELETE 'localhost:3000/api/v1/cart/item/3' \
