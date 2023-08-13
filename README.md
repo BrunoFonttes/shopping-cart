@@ -121,6 +121,26 @@ curl --location --request GET 'localhost:3000/api/v1/cart' \
 --header 'Authorization: 1bd01725-7b40-4bae-89fb-6cdd36f66614'
 ```
 
+Response Body:
+
+```
+{
+    "items": [
+        {
+            "item": {
+                "id": number,
+                "name": "string",
+                "price": number
+            },
+            "amount": number
+        },
+    ],
+    "totalPrice": number,
+    "discountPrice": number,
+    "discount": number
+}
+```
+
 Add item to cart
 
 ```
@@ -136,6 +156,6 @@ curl --location 'localhost:3000/api/v1/cart' \
 Remove item from cart
 
 ```
-curl --location --request DELETE 'localhost:3000/api/v1/cart/item/1' \
+curl --location --request DELETE 'localhost:3000/api/v1/cart/item/3' \
 --header 'Authorization: 1bd01725-7b40-4bae-89fb-6cdd36f66614'
 ```

@@ -11,4 +11,6 @@ type CartItemDTO = {
 export type CartDTO = {
 	items: CartItemDTO[];
 	totalPrice: number;
+	discountPrice: number;
+	discount: number;
 };

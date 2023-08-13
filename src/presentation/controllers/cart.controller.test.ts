@@ -155,7 +155,9 @@ describe("tests cart/ resource", () => {
 										amount: 3,
 									},
 								],
-								totalPrice: 25.98,
+								discount: 12.99,
+								discountPrice: 25.98,
+								totalPrice: 38.97,
 							});
 						});
 				});

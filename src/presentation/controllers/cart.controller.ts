@@ -81,11 +81,13 @@ export class CartController {
 				throw responseOrError.value;
 			}
 
-			const { userId, ...response } = responseOrError.value;
+			const response = responseOrError.value;
 
 			const carDTO: CartDTO = {
 				items: Object.values(response.items),
 				totalPrice: response.totalPrice,
+				discountPrice: response.discountPrice,
+				discount: response.discount,
 			};
 
 			return res.status(StatusCodes.OK).json(carDTO);
