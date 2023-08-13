@@ -83,7 +83,7 @@ describe("tests cart service", () => {
 
 			spies.itemRepositoryStub.getByIdSpy.mockResolvedValueOnce(failure(new Error()));
 
-			const resultOrError = await sut.removeItem(1, 1);
+			const resultOrError = await sut.removeItem({ userId: 1, itemId: 1 });
 
 			expect(resultOrError.isFailure()).toBe(true);
 		});
@@ -92,14 +92,14 @@ describe("tests cart service", () => {
 
 			spies.cartRepositoryStub.removeItemSpy.mockResolvedValueOnce(failure(new Error()));
 
-			const resultOrError = await sut.removeItem(1, 1);
+			const resultOrError = await sut.removeItem({ userId: 1, itemId: 1 });
 
 			expect(resultOrError.isFailure()).toBe(true);
 		});
 		it("should return success", async () => {
 			const { sut } = makeSut();
 
-			const resultOrError = await sut.removeItem(1, 1);
+			const resultOrError = await sut.removeItem({ userId: 1, itemId: 1 });
 
 			expect(resultOrError.isSuccess()).toBe(true);
 		});

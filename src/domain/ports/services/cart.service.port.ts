@@ -8,7 +8,7 @@ export interface CartServicePort {
 		amount: number;
 	}): Promise<Either<Error, void>>;
 
-	removeItem: (userId: number, itemId: number) => Promise<Either<Error, void>>;
+	removeItem: (cart: { userId: number; itemId: number }) => Promise<Either<Error, void>>;
 
 	getCart: (userId: number) => Promise<Either<Error, Cart>>;
 }

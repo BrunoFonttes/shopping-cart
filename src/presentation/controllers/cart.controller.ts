@@ -56,10 +56,10 @@ export class CartController {
 					.json({ details: "req.params: itemId must be an integer" });
 			}
 
-			const responseOrError = await this.cartService.removeItem(
-				req.userId,
-				Number.parseInt(itemId),
-			);
+			const responseOrError = await this.cartService.removeItem({
+				userId: req.userId,
+				itemId: Number.parseInt(itemId),
+			});
 
 			if (responseOrError.isFailure()) {
 				throw responseOrError.value;

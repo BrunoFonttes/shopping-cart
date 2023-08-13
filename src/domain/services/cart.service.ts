@@ -52,7 +52,11 @@ export class CartService implements CartServicePort {
 		return success(void 0);
 	}
 
-	async removeItem(userId: number, itemId: number): Promise<Either<Error, void>> {
+	async removeItem(cart: { userId: number; itemId: number }): Promise<Either<Error, void>> {
+		logger.info("cartService.removeItem parameters", cart);
+
+		const { userId, itemId } = cart;
+
 		const itemOrError = await this.itemRepository.getById(itemId);
 
 		if (itemOrError.isFailure()) {
@@ -60,6 +64,8 @@ export class CartService implements CartServicePort {
 		}
 
 		const item = itemOrError.value;
+
+		logger.info("cartService.item", item);
 
 		const cartOrError = await this.cartRepository.removeItem(userId, item);
 
