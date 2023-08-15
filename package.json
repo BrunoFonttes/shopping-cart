@@ -10,10 +10,10 @@
     "dev": "npx nodemon -w src --exec \"dotenv -e .env ts-node src/index.ts\" -e \"ts\"",
     "build": "tsc",
     "prod": "node build/index.js",
-    "test:watch": "npx jest --watch",
-    "test:staged": "npx jest --bail --passWithNoTests --findRelatedTests ",
-    "test:coverage": "npx jest --coverage",
-    "test": "npx jest"
+    "test:watch": "npm test -- --watch",
+    "test:staged": "npm test -- --bail --passWithNoTests --findRelatedTests ",
+    "test:coverage": "npm test -- --coverage",
+    "test": "npx jest --runInBand"
   },
   "author": "Bruno Fontes",
   "license": "ISC",

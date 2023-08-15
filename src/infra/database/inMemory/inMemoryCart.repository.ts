@@ -16,15 +16,11 @@ export class InMemoryCartRepository implements CartRepositoryPort {
 	async getByUserId(userId: number): Promise<Either<Error, Cart>> {
 		const cart = this.carts.get(userId);
 
-		if (cart) {
-			if (Object.keys(cart).length === 0) {
-				return failure(new ResourceNotFoundException("cart not found"));
-			}
-
-			return success(new Cart(userId, cart));
+		if (!cart) {
+			return success(new Cart(userId, {}));
 		}
 
-		return failure(new ResourceNotFoundException("cart not found"));
+		return success(new Cart(userId, cart));
 	}
 
 	async addOrUpdateItem(userId: number, cartItem: CartItem): Promise<Either<Error, Cart>> {

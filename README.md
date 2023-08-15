@@ -44,6 +44,8 @@ Since the domain in protected by repositories ports(interfaces), implementing an
 The app has unit tests for domain/entities and domain/services and integrated tests, in presentation/controllers
 Tests are in the same level as the tested file in order to facilitate visualization.
 
+Observation: Using --runInBand flag to run tests sequentially in order to ensure integration tests results, since there is no mechanism to clean database between each test. To avoid that we could use sqlite and clean database before each integrated test.
+
 Example:
 
 ```
