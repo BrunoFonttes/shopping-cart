@@ -38,7 +38,16 @@ export class Cart {
 		totalItems: number;
 		itemsIdsOrderedByPrice: number[];
 	}): number {
-		const freeItemsAmount = Math.floor(cart.totalItems / 3);
+		const freeItemsAmount =
+			Math.floor(cart.totalItems / 3) <= cart.itemsIdsOrderedByPrice.length
+				? Math.floor(cart.totalItems / 3)
+				: cart.itemsIdsOrderedByPrice.length;
+
+		logger.info("free items amount", {
+			freeItemsAmount,
+			totalItems: cart.totalItems,
+			amountOfDifferentItems: cart.itemsIdsOrderedByPrice.length,
+		});
 
 		let discount: number = 0;
 

@@ -69,6 +69,10 @@ For the initial user, I simulated a token based authentication.
 The token for the initial user can be set via USER_TOKEN variable in .env file.
 The initial value set in .env.example is 1bd01725-7b40-4bae-89fb-6cdd36f66614
 
+\*\*Business Rules Interpretation
+
+Only 1 item of each kind is available for discount. So if the cart has 6 items of same type, the discount is gonna be the price of only one.
+
 ## Main features
 
 - logging level
